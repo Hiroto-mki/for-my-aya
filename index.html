@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffe6f0, #ffccdd);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        /* Hearts floating animation */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.4);
+            font-size: 24px;
+            animation: floatUp 10s linear infinite;
+            bottom: -50px;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Page container */
+        .page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Floating box style */
+        .floating-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.15);
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            transform: translateY(0);
+            animation: floatBox 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+        
+        .floating-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        @keyframes floatBox {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* GIF styling */
+        .gif-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 25px;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 182, 193, 0.1);
+            border: 2px dashed #ffb6c1;
+        }
+        
+        .gif-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        
+        /* Text styling */
+        .main-text {
+            font-size: 2rem;
+            color: #ff69b4;
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.3);
+            line-height: 1.4;
+        }
+        
+        /* Button styling */
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            min-width: 130px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-yes {
+            background: linear-gradient(to right, #7ed56f, #55c57a);
+            color: white;
+        }
+        
+        .btn-no {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            color: white;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-proceed {
+            background: linear-gradient(to right, #ff69b4, #ff8ec7);
+            color: white;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        /* Initially hidden pages */
+        .hidden {
+            display: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .floating-box {
+                padding: 20px;
+                width: 90%;
+            }
+            
+            .main-text {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <!-- PAGE 1: Valentine Question -->
+    <div class="page" id="page1">
+        <div class="floating-box">
+            <div class="gif-container">
+                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejl5eG9tNTF4OTh1ejR1MXhrZ3l6MG5kY2xnOTJ1Z2NncDJ6M2YyMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/opvdnsIBv1AciolLjk/giphy.gif" alt="Cute Valentine GIF">
+            </div>
+            <div class="main-text">Will you be my Valentine?</div>
+            <div class="buttons-container">
+                <button class="btn btn-yes" id="yesBtn">YES!</button>
+                <button class="btn btn-no" id="noBtn">No</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PAGE 2: YAY Page -->
+    <div class="page hidden" id="page2">
+        <div class="floating-box">
+            <div class="gif-container">
+                <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWJ3MGEzNHhqdW04ZWtqdnJnM3hmcG5uc3dvZnRseTUza3pqMmQ5MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/lpU91npgmwIvkrMVDK/giphy.gif" alt="Happy GIF">
+            </div>
+            <div class="main-text">YAYYYYYYYYY!!!</div>
+            <a href="option.html" class="btn btn-proceed" id="proceedBtn">Proceed to Surprise</a>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            
+            // Page 1: No button behavior
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            let noClicks = 0;
+            
+            noBtn.addEventListener('click', function(e) {
+                noClicks++;
+                
+                // Make Yes button bigger
+                yesBtn.style.transform = 'scale(' + (1 + noClicks * 0.2) + ')';
+                yesBtn.style.transition = 'transform 0.3s ease';
+                
+                // Move No button randomly
+                const maxX = window.innerWidth - noBtn.offsetWidth;
+                const maxY = window.innerHeight - noBtn.offsetHeight;
+                
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+                
+                noBtn.style.position = 'fixed';
+                noBtn.style.left = randomX + 'px';
+                noBtn.style.top = randomY + 'px';
+                
+                // Remove No button after 3 clicks
+                if (noClicks >= 3) {
+                    noBtn.style.display = 'none';
+                }
+                
+                e.preventDefault();
+            });
+            
+            // Yes button - go to page 2
+            yesBtn.addEventListener('click', function() {
+                document.getElementById('page1').classList.add('hidden');
+                document.getElementById('page2').classList.remove('hidden');
+                
+                // Add celebration effect
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        createCelebrationHeart();
+                    }, i * 100);
+                }
+            });
+        });
+        
+        // Create celebration hearts for Yes click
+        function createCelebrationHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.style.position = 'fixed';
+            heart.style.color = '#ff69b4';
+            heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.zIndex = '9999';
+            heart.style.pointerEvents = 'none';
+            
+            document.body.appendChild(heart);
+            
+            // Animate celebration heart
+            const animation = heart.animate([
+                { transform: 'translateY(0) scale(1)', opacity: 1 },
+                { transform: 'translateY(-100vh) scale(1.5)', opacity: 0 }
+            ], {
+                duration: 1500,
+                easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+            });
+            
+            animation.onfinish = () => {
+                heart.remove();
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine ❤️ | A Letter for You</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffe6f0, #ffccdd);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        /* Floating hearts background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.3);
+            font-size: 24px;
+            animation: floatUp 15s linear infinite;
+            bottom: -50px;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Letter page container */
+        .letter-page {
+            width: 100%;
+            max-width: 1000px;
+            padding: 30px 20px;
+            animation: fadeIn 0.8s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Page title */
+        .page-title {
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.3);
+            font-weight: 700;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Content container (letter + photo side by side) */
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+        
+        /* Polaroid photo styling */
+        .polaroid-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .polaroid {
+            background: white;
+            padding: 20px 20px 60px;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transform: rotate(-2deg);
+            transition: transform 0.5s ease;
+            position: relative;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+        
+        .polaroid img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+            border-radius: 2px;
+            filter: sepia(0.1) brightness(1.05);
+        }
+        
+        .polaroid-caption {
+            text-align: center;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            color: #666;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+        
+        /* Letter styling */
+        .letter-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            animation: slideInRight 1s ease-out;
+        }
+        
+        .letter {
+            background: #fffef7;
+            padding: 35px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 1px solid #ffebee;
+            transform: rotate(1deg);
+            transition: transform 0.5s ease;
+            animation: openLetter 1.2s ease-out;
+            transform-origin: left center;
+        }
+        
+        .letter:hover {
+            transform: rotate(0deg);
+        }
+        
+        @keyframes openLetter {
+            0% { transform: perspective(1000px) rotateY(90deg); opacity: 0; }
+            100% { transform: perspective(1000px) rotateY(0deg); opacity: 1; }
+        }
+        
+        /* Simulate letter paper texture */
+        .letter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 95%, rgba(0,0,0,0.05) 100%);
+            background-size: 100% 30px;
+            pointer-events: none;
+            border-radius: 10px;
+            z-index: 1;
+        }
+        
+        /* Letter content */
+        .letter-content {
+            position: relative;
+            z-index: 2;
+            line-height: 1.8;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .letter-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ffccd5;
+        }
+        
+        .letter-date {
+            font-size: 1rem;
+            color: #ff69b4;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        
+        .letter-greeting {
+            font-size: 1.4rem;
+            color: #d81b60;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .letter-body {
+            margin-bottom: 25px;
+        }
+        
+        .letter-body p {
+            margin-bottom: 18px;
+            text-align: justify;
+        }
+        
+        .letter-signature {
+            margin-top: 30px;
+            text-align: right;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ff4081;
+        }
+        
+        .letter-close {
+            font-style: italic;
+            color: #666;
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+        
+        /* Wax seal effect */
+        .wax-seal {
+            position: absolute;
+            bottom: 25px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #d81b60;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 3;
+            transform: rotate(15deg);
+            animation: sealStamp 0.8s ease-out 1s both;
+        }
+        
+        @keyframes sealStamp {
+            0% { transform: rotate(15deg) scale(3); opacity: 0; }
+            70% { transform: rotate(-5deg) scale(0.9); opacity: 1; }
+            100% { transform: rotate(15deg) scale(1); opacity: 1; }
+        }
+        
+        /* Exit button - Updated to go back to option.html */
+        .exit-btn {
+            background: linear-gradient(to right, #ff69b4, #ff8ec7);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInUp 1.2s ease-out;
+            text-decoration: none;
+        }
+        
+        .exit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 105, 180, 0.4);
+        }
+        
+        .exit-btn:active {
+            transform: translateY(0);
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Animation for letter opening */
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .content-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            
+            .polaroid-container, .letter-container {
+                max-width: 100%;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .letter-content {
+                font-size: 1rem;
+            }
+            
+            .letter {
+                padding: 25px 20px;
+            }
+            
+            .polaroid img {
+                height: 280px;
+            }
+        }
+        
+        /* Envelope opening effect */
+        .envelope-flap {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid #ffebee;
+            z-index: 2;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <div class="letter-page">
+        <h1 class="page-title">A Letter for My Valentine ❤️</h1>
+        
+        <div class="content-container">
+            <!-- Polaroid Photo -->
+            <div class="polaroid-container">
+                <div class="polaroid">
+                    <div class="envelope-flap"></div>
+                    <img src="1.jpg" alt="Aya">
+                    <div class="polaroid-caption">
+                        "To the one who makes every sunset more beautiful"
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Love Letter -->
+            <div class="letter-container">
+                <div class="letter">
+                    <div class="letter-content">
+                        <div class="letter-header">
+                            <div class="letter-date">February 14, 2026</div>
+                            <div class="letter-greeting">Dear Aya,</div>
+                        </div>
+                        
+                        <div class="letter-body">
+                            <p>Happy Valentine's, Aya,</p>
+                            
+                            <p>Today is such a special day to me, hindi lang dahil Valentine's Day today, pero dahil I am given another day to witness your beauty and appreciate your brilliance. I cannot express my gratitude enough po sa'yo. I cannot find the right words to write this letter, kasi I truly believe that no words are worthy enough to be used to describe how beautiful you made my world. That's why I'll let my heart tell you these, through the lens of the "me" that loved you… and still chooses to love you every single day.</p>
+                            
+                            <p>Aya, having you in my life feels like discovering colors I never knew existed. You didn't just enter my world — you gently reshaped it into something warmer, softer, and more meaningful. You made me realize that love is not just about happiness, but about growth, understanding, patience, and choosing someone even during the quiet and difficult days. You made ordinary moments feel special, and you made me appreciate the small things that I used to overlook.</p>
+                            
+                            <p>I want you to know how grateful I am for you. Truly, deeply, endlessly grateful. Because you didn't just love me — you helped me find parts of myself that I thought I had already lost. Back then, I was so lost about who I was, especially with the things that once made me feel alive. The passion I had for art, editing, cinematography, and the creative things that used to define me slowly faded, and I didn't even realize how far I drifted away from them. I felt like I was just existing, not really living, not really creating, not really dreaming.</p>
+                            
+                            <p>But then you came into my life.</p>
+                            
+                            <p>You reminded me what it feels like to be inspired again. You made me want to pick up the things I once loved, not because I had to, but because you made me remember why I loved them in the first place. You became my motivation in ways you probably don't even notice. Every time I create something, every time I try to improve myself, every time I push myself to grow — a part of that strength comes from you. You make me want to become someone better, not just for you, but for myself too. And that is something I will forever be thankful for.</p>
+                            
+                            <p>Aya, I also want you to remember this… you are never alone anymore. I know life hasn't always been easy for you. I know there were times when you felt like you had to hide your pain, isolate yourself, or carry everything quietly on your own. But please know that you don't have to do that anymore. You don't have to pretend to be strong all the time. You don't have to fight your battles alone. I am here. I am here to listen, to stay, to understand, and to hold your hand through every challenge that comes your way. Your fears, your worries, your scars — they do not make you weak. They make you human, and they make you someone I admire even more.</p>
+                            
+                            <p>You are one of the strongest and most beautiful souls I have ever known. Not just beautiful in appearance, but beautiful in the way you think, in the way you care, in the way you love, and in the way you continue to shine even when life gets heavy. You inspire me simply by being you.</p>
+                            
+                            <p>There may be challenges ahead of us. Life is unpredictable, and the road we walk on will not always be smooth. But if there is one thing I am certain about, it is that loving you is something I will always be proud of. I will always choose you, through the good days, the confusing days, and even the days when words fail and silence is all we have. Because loving you is not just a feeling — it is a decision that my heart keeps making over and over again.</p>
+                            
+                            <p>Thank you, Aya. Thank you for your love, your patience, your warmth, your kindness, and your presence in my life. Thank you for staying. Thank you for believing in me even when I struggled to believe in myself. Thank you for being my light when I felt lost in the dark. And thank you for being my home — the place where my heart feels safe and understood.</p>
+                            
+                            <p>I am super, unbelievably, endlessly grateful for you. More than I can ever fully explain. More than any letter can ever contain. And if there is one promise I want to make today, it is that I will continue to cherish you, appreciate you, support you, and love you with the most genuine heart that I have.</p>
+                            
+                            <p>Happy Valentine's Day, my Aya. You are one of the greatest blessings that ever happened to me, and I will forever be thankful that our paths crossed.</p>
+                        </div>
+                        
+                        <div class="letter-signature">
+                            With all my love,
+                        </div>
+                        <div class="letter-close">
+                            Maki
+                        </div>
+                    </div>
+                    
+                    <!-- Wax seal -->
+                    <div class="wax-seal">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Exit button to go back to OPTION.HTML -->
+        <a href="option.html" class="exit-btn" id="exitBtn">
+            <i class="fas fa-arrow-left"></i> Back to Options
+        </a>
+    </div>
+    
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            
+            // Add subtle animation to letter paragraphs
+            const paragraphs = document.querySelectorAll('.letter-body p');
+            paragraphs.forEach((p, index) => {
+                p.style.opacity = '0';
+                p.style.transform = 'translateY(20px)';
+                p.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
+                
+                // Trigger animation after a short delay
+                setTimeout(() => {
+                    p.style.opacity = '1';
+                    p.style.transform = 'translateY(0)';
+                }, 300 + (index * 200));
+            });
+        });
+    </script>
+</body>
+</html>

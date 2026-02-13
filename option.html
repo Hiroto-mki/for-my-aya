@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine ❤️ | Choose Your Gift</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffe6f0, #ffccdd);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        /* Hearts floating animation */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.4);
+            font-size: 24px;
+            animation: floatUp 10s linear infinite;
+            bottom: -50px;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Page container */
+        .page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Floating box style */
+        .floating-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.15);
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            transform: translateY(0);
+            animation: floatBox 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+        
+        .floating-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        @keyframes floatBox {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Text styling */
+        .sub-text {
+            font-size: 1.5rem;
+            color: #d48ba6;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        
+        /* Circle with options */
+        .circle-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin: 40px auto;
+        }
+        
+        .pink-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 182, 193, 0.15);
+            border-radius: 50%;
+            border: 3px dashed #ffb6c1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: rotateSlow 20s linear infinite;
+        }
+        
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8rem;
+            color: #ff69b4;
+            font-weight: 700;
+            background: white;
+            padding: 20px;
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+        }
+        
+        .option-gif {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .option-gif:hover {
+            transform: scale(1.2);
+            z-index: 5;
+            border-color: #ff69b4;
+        }
+        
+        .option-gif img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Back button */
+        .back-btn {
+            background: linear-gradient(to right, #ff69b4, #ff8ec7);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(255, 105, 180, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(255, 105, 180, 0.4);
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .floating-box {
+                padding: 20px;
+                width: 90%;
+            }
+            
+            .circle-container {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .center-text {
+                width: 150px;
+                height: 150px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <!-- Options Circle Page -->
+    <div class="page">
+        <div class="floating-box">
+            <div class="sub-text">Select an option</div>
+            <div class="circle-container">
+                <div class="pink-circle"></div>
+                <div class="center-text">Pick Your Gift!</div>
+                
+                <!-- Option GIFs will be positioned by JS -->
+                <div class="option-gif" id="option1">
+                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm1mNTVsNjNmMjV5MHUxbXk2bGtmMjhubm0yZmVvZmRyYm8weW1peiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/ouPBYxIbnLkc5yigZg/giphy.gif" alt="Option 1">
+                </div>
+                <div class="option-gif" id="option2">
+                    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTIxenZvdmF6NTFjaWU2ZXB5dnd0cHhvN2sxZDFxYmRwcnEyYTB5aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/FTGah7Mx3ss04PcasF/giphy.gif" alt="Option 2">
+                </div>
+                <div class="option-gif" id="option3">
+                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWFwejc5eXBpamgzaW1yeDc1ejdwNmUyeDFzeGt4bXBra3JxeThtbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VpW0LoWNwGIgo7fams/giphy.gif" alt="Option 3">
+                </div>
+            </div>
+            
+            <!-- Back button to return to YAY page -->
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to YAY Page
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            
+            // Position option GIFs in a circle
+            positionOptionGifs();
+            
+            // Animate the circle
+            const pinkCircle = document.querySelector('.pink-circle');
+            pinkCircle.style.animation = 'rotateSlow 20s linear infinite';
+            
+            // Option GIFs selection
+            document.getElementById('option1').addEventListener('click', function() {
+                // Navigate to letter.html
+                window.location.href = 'letter.html';
+            });
+            
+            document.getElementById('option2').addEventListener('click', function() {
+                alert("Option 2 selected! This could lead to another surprise page.");
+                window.location.href = 'poem.html';
+            });
+            
+            document.getElementById('option3').addEventListener('click', function() {
+                alert("Option 3 selected! This could lead to another surprise page.");
+                window.location.href = 'song.html';
+            });
+        });
+        
+        // Position GIFs in a circle
+        function positionOptionGifs() {
+            const options = document.querySelectorAll('.option-gif');
+            const radius = 120; // Distance from center
+            const centerX = 175; // Half of circle-container width
+            const centerY = 175; // Half of circle-container height
+            
+            options.forEach((option, index) => {
+                const angle = (index * (360 / options.length)) * (Math.PI / 180);
+                const x = centerX + radius * Math.cos(angle) - 40; // 40 is half of gif width
+                const y = centerY + radius * Math.sin(angle) - 40; // 40 is half of gif height
+                
+                option.style.left = x + 'px';
+                option.style.top = y + 'px';
+            });
+        }
+    </script>
+</body>
+</html>

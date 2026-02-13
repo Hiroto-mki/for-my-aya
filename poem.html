@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine ❤️ | Isang Tula Para Sa'yo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffe6f0, #ffccdd);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        /* Floating hearts background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.3);
+            font-size: 24px;
+            animation: floatUp 15s linear infinite;
+            bottom: -50px;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Poem page container */
+        .poem-page {
+            width: 100%;
+            max-width: 1100px;
+            padding: 30px 20px;
+            animation: fadeIn 0.8s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Page title */
+        .page-title {
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.3);
+            font-weight: 700;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Content container (poem + photo side by side) */
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+        
+        /* Polaroid photo styling */
+        .polaroid-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .polaroid {
+            background: white;
+            padding: 20px 20px 60px;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transform: rotate(-2deg);
+            transition: transform 0.5s ease;
+            position: relative;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+        
+        .polaroid img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+            border-radius: 2px;
+            filter: sepia(0.1) brightness(1.05);
+        }
+        
+        .polaroid-caption {
+            text-align: center;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            color: #666;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+        
+        /* Poem container */
+        .poem-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            animation: slideInRight 1s ease-out;
+        }
+        
+        .poem-book {
+            background: #fffef7;
+            padding: 35px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 1px solid #ffebee;
+            transition: transform 0.5s ease;
+            animation: openBook 1.2s ease-out;
+            transform-origin: left center;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .poem-book:hover {
+            transform: rotate(0deg);
+        }
+        
+        @keyframes openBook {
+            0% { transform: perspective(1000px) rotateY(90deg); opacity: 0; }
+            100% { transform: perspective(1000px) rotateY(0deg); opacity: 1; }
+        }
+        
+        /* Simulate paper texture */
+        .poem-book::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 95%, rgba(0,0,0,0.05) 100%);
+            background-size: 100% 30px;
+            pointer-events: none;
+            border-radius: 10px;
+            z-index: 1;
+        }
+        
+        /* Poem content */
+        .poem-content {
+            position: relative;
+            z-index: 2;
+            line-height: 1.8;
+            color: #333;
+            font-size: 1.15rem;
+            text-align: center;
+            font-family: 'Georgia', serif;
+        }
+        
+        .stanza-number {
+            font-size: 0.9rem;
+            color: #ff69b4;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .poem-line {
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInLine 0.8s ease-out forwards;
+        }
+        
+        @keyframes fadeInLine {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Navigation controls */
+        .poem-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(to right, #ff69b4, #ff8ec7);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+        }
+        
+        .nav-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .page-indicator {
+            font-size: 1.2rem;
+            color: #d81b60;
+            font-weight: 600;
+            padding: 8px 20px;
+            background: rgba(255, 182, 193, 0.2);
+            border-radius: 20px;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        /* Poem title */
+        .poem-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #d81b60;
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        /* Decorative elements */
+        .page-corner {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: #ffebee;
+            border-radius: 0 0 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ff69b4;
+            font-size: 1.2rem;
+            z-index: 3;
+        }
+        
+        /* Quote styling */
+        .poem-quote {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 182, 193, 0.1);
+            border-left: 4px solid #ff69b4;
+            border-radius: 5px;
+            font-style: italic;
+            color: #555;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        /* Exit button */
+        .exit-btn {
+            background: linear-gradient(to right, #ff69b4, #ff8ec7);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInUp 1.2s ease-out;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        
+        .exit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 105, 180, 0.4);
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Animation for sliding pages */
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .content-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            
+            .polaroid-container, .poem-container {
+                max-width: 100%;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .poem-content {
+                font-size: 1rem;
+            }
+            
+            .poem-book {
+                padding: 25px 20px;
+                min-height: 450px;
+            }
+            
+            .polaroid img {
+                height: 280px;
+            }
+            
+            .poem-title {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Envelope opening effect */
+        .envelope-flap {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid #ffebee;
+            z-index: 2;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <div class="poem-page">
+        <h1 class="page-title">Isang Tula Para Sa'yo ❤️</h1>
+        
+        <div class="content-container">
+            <!-- Polaroid Photo -->
+            <div class="polaroid-container">
+                <div class="polaroid">
+                    <div class="envelope-flap"></div>
+                    <img src="poemcov.jpg" alt="Aya and Maki">
+                    <div class="polaroid-caption">
+                        "Ikaw ang paborito kong tula."
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Poem Book -->
+            <div class="poem-container">
+                <div class="poem-book">
+                    <div class="poem-content" id="poemContent">
+                        <!-- Poem content will be loaded dynamically -->
+                        <div class="poem-title" id="poemTitle">Agaw-Dilim</div>
+                        <div class="stanza-number" id="stanzaNumber">Saknong 1 ng 15</div>
+                        <div id="poemLines">
+                            <!-- Poem lines will be inserted here by JavaScript -->
+                        </div>
+                        
+                        <!-- Quote for each page -->
+                        <div class="poem-quote" id="poemQuote">
+                            "Ang pag-ibig na tunay ay hindi sumusukat ng oras, nagbibilang lamang ng mga ngiti at yakap."
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation buttons -->
+                    <div class="poem-navigation">
+                        <button class="nav-btn" id="prevBtn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        
+                        <div class="page-indicator">
+                            <span id="currentPage">1</span> / <span id="totalPages">15</span>
+                        </div>
+                        
+                        <button class="nav-btn" id="nextBtn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    
+        
+        <!-- Exit button to go back to OPTION.HTML -->
+        <a href="option.html" class="exit-btn" id="exitBtn">
+            <i class="fas fa-arrow-left"></i> Back to Options
+        </a>
+    </div>
+    
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+        
+        // The complete poem (15 stanzas)
+        const poem = [
+            {
+                stanza: 1,
+                lines: [
+                    "Sa piling mo, tumitigil ang takbuhan",
+                    "Parang mundong marunong nang huminto't sandalan",
+                    "Sa bawat hinga, payapa ang daanan",
+                    "Pag-ibig mo ang aking tanging tahanan"
+                ],
+                quote: "Ang tunay na pag-ibig ay hindi tumatakbo, kundi nananatili."
+            },
+            {
+                stanza: 2,
+                lines: [
+                    "Kung ang langit ay may sariling pangalan",
+                    "Ikaw iyon sa anyong kayang pagmasdan",
+                    "Tahimik, malawak, hindi kailanman pinag-pipilitan",
+                    "Ikaw ay isang bughaw na yakap sa aking kalawakan"
+                ],
+                quote: "Ikaw ang langit na hindi ko kailanman inakalang mahahawakan."
+            },
+            {
+                stanza: 3,
+                lines: [
+                    "Ang iyong mga mata, pusa kung tumingin—mahinahon",
+                    "Itim na iris na sa araw ay nagiging kayumanggi't buhay—natatan-awan",
+                    "Parang lihim na bituing ayaw magpakilala agad-agad kaninuman",
+                    "Ngunit kapag nasilayan, ayaw-ayaw nang talikuran"
+                ],
+                quote: "Sa iyong mga mata nakikita ko ang buong sansinukob."
+            },
+            {
+                stanza: 4,
+                lines: [
+                    "Ang buhok mong dumadaloy na tila sutlang hinaplos ng hanginan",
+                    "Bawat galaw ay dasal na walang sinasambitan",
+                    "Sa katahimikan nito, may kwentong pinapakinggan",
+                    "Isang awit na hindi kailanman pinipilit kong pakinggan"
+                ],
+                quote: "Ang bawat hibla ng iyong buhok ay tulad ng mga tala sa gabi."
+            },
+            {
+                stanza: 5,
+                lines: [
+                    "Ang balat mong malambot, parang umagang kakagising pa lamang",
+                    "May init na hindi nanununog, may lamig na kayang paghiluman",
+                    "Sa isang dampi, mundo'y natutong huminahon",
+                    "At ang oras ay marunong nang magpahinga pagkatapos ng mahabang maghapon"
+                ],
+                quote: "Ang iyong paghipo ay parang umaga—banayad ngunit puno ng pag-asa."
+            },
+            {
+                stanza: 6,
+                lines: [
+                    "Ang labi mong banayad magsalita, parang ulan sa alikabukan",
+                    "Hindi kailanman malakas, ngunit kayang bumuhay ng kapatagan",
+                    "Bawat salita mo'y may bigat na hindi kailangang ipaglaban",
+                    "Dahil kusa itong tumatama—nagiiwan ng marka sa kalooban"
+                ],
+                quote: "Ang iyong mga salita ay parang ulan—nagbibigay buhay sa lahat ng dinaratnan."
+            },
+            {
+                stanza: 7,
+                lines: [
+                    "Sa paraan mong manamit—simple ngunit may lalim ang datingan",
+                    "Parang tula na hindi humihingi ng papurihan",
+                    "Ikaw ay lambing na may dignidad at paninindigan",
+                    "Isang sining na hindi kailangang ipaliwanag kaninuman"
+                ],
+                quote: "Ang simpleng kagandahan ay hindi nangangailangan ng paliwanag."
+            },
+            {
+                stanza: 8,
+                lines: [
+                    "Mahal kita sa paraang hindi nagmamadali kailanman",
+                    "Hindi kita hinahabol, bagkus ay sinasabayan",
+                    "Kung ikaw ay mapagod, ako ang iyong pahingahan",
+                    "Kung ikaw ay manghina, ako ang iyong sandigan"
+                ],
+                quote: "Ang pagmamahal ay hindi paghabol kundi pagsasabay."
+            },
+            {
+                stanza: 9,
+                lines: [
+                    "Kapag ang mundo'y masyadong maingay at magulo ang tanawan",
+                    "Ako'y mananatiling tahimik sa iyong tabi lamang",
+                    "Hindi kita hihilahin, hindi rin iiwanan",
+                    "Maglalakad tayo sa bilis na kaya ng iyong damdamin at pangangailangan"
+                ],
+                quote: "Sa ingay ng mundo, tanging katahimikan mo ang aking nais marinig."
+            },
+            {
+                stanza: 10,
+                lines: [
+                    "Kung minsan ay madilim at mabigat ang iyong pakiramdaman",
+                    "Huwag mong ikubli—ako'y handang makiramay at umunawa't sumalo riyan",
+                    "Hindi mo kailangang mag-isa sa bawat laban",
+                    "Dahil ang pagmamahal ko'y hindi umaatras sa diliman"
+                ],
+                quote: "Kahit sa pinakamadilim mong gabi, ako'y mananatiling ilaw mo."
+            },
+            {
+                stanza: 11,
+                lines: [
+                    "May mga araw na ang nakaraan ay muling magpaparamdam",
+                    "Mga aninong pilit magdidikta ng salaysayan",
+                    "Ngunit ang kahapon ay bahagi lamang ng dinaanan",
+                    "Hindi nito kayang agawin ang kasalukuyang pinanghahawakan"
+                ],
+                quote: "Ang nakaraan ay alaala lamang, ang kasalukuyan ay regalo."
+            },
+            {
+                stanza: 12,
+                lines: [
+                    "Sa panaginip ko noon, may silid-aralang kulay kahel ang tanawan",
+                    "Sa gilid ng dapithapon, may pigurang walang pangalan",
+                    "Walang mukha, tanging init at kapayapaan",
+                    "Ngayon, malinaw na—ikaw pala ang hinihintay sa'king kapanaginipan"
+                ],
+                quote: "Ikaw ang sagot sa mga panalangin na hindi ko kailanman binigkas."
+            },
+            {
+                stanza: 13,
+                lines: [
+                    "Ikaw ang anyo ng panaginip na naging katotohanan",
+                    "Hindi perpekto, ngunit ganap sa aking paniniwala't pinananampalatayaan",
+                    "Sa bawat umaga, ikaw ang dahilan",
+                    "Kung bakit nais kong maging mas mabuti ang aking katauhan"
+                ],
+                quote: "Ikaw ang dahilan kung bakit gusto kong maging mas mabuting tao."
+            },
+            {
+                stanza: 14,
+                lines: [
+                    "Kung ang bukas ay puno man ng pagsubok at tanungang walang kasagutan",
+                    "Pipiliin pa rin kitang mahalin nang walang alinlangan",
+                    "Dahil ang pag-ibig ko'y hindi nakabase sa kasiguruhan",
+                    "Kundi sa panata na manatili sa lahat may pagsubok man"
+                ],
+                quote: "Ang pag-ibig ay hindi pag-asa sa katiyakan kundi pagpili sa kawalan nito."
+            },
+            {
+                stanza: 15,
+                lines: [
+                    "Aya, ikaw ang pangarap kong hindi ko na hahayaang mawala sa aking kamalayan",
+                    "Ikaw ang langit na piniling manatili sa aking tanawan",
+                    "At sa habang buhay, iisa lamang ang aking sasabihin at panghahawakan—walang pag-aalinlangan",
+                    "Mahal kita, ngayon, bukas, at sa bawat panahong darating at dadaanan"
+                ],
+                quote: "Ikaw ang tanging tula na nais kong basahin hanggang sa huling hininga."
+            }
+        ];
+        
+        // Current page index
+        let currentPage = 0;
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            
+            // Load the first stanza
+            loadStanza(currentPage);
+            
+            // Set up navigation buttons
+            document.getElementById('prevBtn').addEventListener('click', goToPreviousPage);
+            document.getElementById('nextBtn').addEventListener('click', goToNextPage);
+            
+            // Update navigation button states
+            updateNavigationButtons();
+            
+            // Add page flip animation
+            const poemBook = document.querySelector('.poem-book');
+            poemBook.addEventListener('click', function() {
+                this.style.transform = 'rotate(0deg)';
+            });
+        });
+        
+        // Load a specific stanza
+        function loadStanza(index) {
+            const stanza = poem[index];
+            const poemLinesContainer = document.getElementById('poemLines');
+            
+            // Clear previous lines
+            poemLinesContainer.innerHTML = '';
+            
+            // Add animation delay for each line
+            stanza.lines.forEach((line, lineIndex) => {
+                const lineElement = document.createElement('div');
+                lineElement.className = 'poem-line';
+                lineElement.textContent = line;
+                lineElement.style.animationDelay = `${lineIndex * 0.2}s`;
+                poemLinesContainer.appendChild(lineElement);
+            });
+            
+            // Update stanza number
+            document.getElementById('stanzaNumber').textContent = `Saknong ${stanza.stanza} ng 15`;
+            
+            // Update page indicator
+            document.getElementById('currentPage').textContent = stanza.stanza;
+            document.getElementById('totalPages').textContent = '15';
+            
+            // Update quote
+            document.getElementById('poemQuote').textContent = `"${stanza.quote}"`;
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+        
+        // Go to previous page
+        function goToPreviousPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                loadStanza(currentPage);
+                
+               
+            }
+        }
+        
+        // Go to next page
+        function goToNextPage() {
+            if (currentPage < poem.length - 1) {
+                currentPage++;
+                loadStanza(currentPage);
+                
+                
+            }
+        }
+        
+        // Update navigation button states
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentPage === 0;
+            nextBtn.disabled = currentPage === poem.length - 1;
+            
+            if (prevBtn.disabled) {
+                prevBtn.style.opacity = '0.5';
+            } else {
+                prevBtn.style.opacity = '1';
+            }
+            
+            if (nextBtn.disabled) {
+                nextBtn.style.opacity = '0.5';
+            } else {
+                nextBtn.style.opacity = '1';
+            }
+        }
+        
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                goToPreviousPage();
+            } else if (event.key === 'ArrowRight') {
+                goToNextPage();
+            }
+        });
+    </script>
+</body>
+</html>
