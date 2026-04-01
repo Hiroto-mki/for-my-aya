@@ -109,8 +109,8 @@
         /* Circle with options */
         .circle-container {
             position: relative;
-            width: 350px;
-            height: 350px;
+            width: 380px;
+            height: 380px;
             margin: 40px auto;
         }
         
@@ -155,8 +155,8 @@
         
         .option-gif {
             position: absolute;
-            width: 80px;
-            height: 80px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             overflow: hidden;
             border: 3px solid white;
@@ -212,14 +212,19 @@
             }
             
             .circle-container {
-                width: 300px;
-                height: 300px;
+                width: 320px;
+                height: 320px;
             }
             
             .center-text {
                 width: 150px;
                 height: 150px;
                 font-size: 1.5rem;
+            }
+            
+            .option-gif {
+                width: 65px;
+                height: 65px;
             }
         }
     </style>
@@ -238,13 +243,16 @@
                 
                 <!-- Option GIFs will be positioned by JS -->
                 <div class="option-gif" id="option1">
-                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm1mNTVsNjNmMjV5MHUxbXk2bGtmMjhubm0yZmVvZmRyYm8weW1peiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/ouPBYxIbnLkc5yigZg/giphy.gif" alt="Option 1">
+                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm1mNTVsNjNmMjV5MHUxbXk2bGtmMjhubm0yZmVvZmRyYm8weW1peiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/ouPBYxIbnLkc5yigZg/giphy.gif" alt="Love Letter">
                 </div>
                 <div class="option-gif" id="option2">
-                    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTIxenZvdmF6NTFjaWU2ZXB5dnd0cHhvN2sxZDFxYmRwcnEyYTB5aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/FTGah7Mx3ss04PcasF/giphy.gif" alt="Option 2">
+                    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTIxenZvdmF6NTFjaWU2ZXB5dnd0cHhvN2sxZDFxYmRwcnEyYTB5aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/FTGah7Mx3ss04PcasF/giphy.gif" alt="Poem">
                 </div>
                 <div class="option-gif" id="option3">
-                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWFwejc5eXBpamgzaW1yeDc1ejdwNmUyeDFzeGt4bXBra3JxeThtbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VpW0LoWNwGIgo7fams/giphy.gif" alt="Option 3">
+                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWFwejc5eXBpamgzaW1yeDc1ejdwNmUyeDFzeGt4bXBra3JxeThtbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VpW0LoWNwGIgo7fams/giphy.gif" alt="Our Song">
+                </div>
+                <div class="option-gif" id="option4">
+                    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2liNmM3YmwxazVpeHBjbXBnNWx3aWVldHE3bDh5OXEyZ2k4bXlkYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/PACwE2Ivzg08VnTLTd/giphy.gif" alt="Our Photos">
                 </div>
             </div>
             
@@ -274,7 +282,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             createHearts();
             
-            // Position option GIFs in a circle
+            // Position option GIFs in a circle (4 options now)
             positionOptionGifs();
             
             // Animate the circle
@@ -283,37 +291,47 @@
             
             // Option GIFs selection
             document.getElementById('option1').addEventListener('click', function() {
-                // Navigate to letter.html
                 window.location.href = 'letter.html';
             });
             
             document.getElementById('option2').addEventListener('click', function() {
-                alert("Option 2 selected! This could lead to another surprise page.");
                 window.location.href = 'poem.html';
             });
             
             document.getElementById('option3').addEventListener('click', function() {
-                alert("Option 3 selected! This could lead to another surprise page.");
                 window.location.href = 'song.html';
+            });
+            
+            document.getElementById('option4').addEventListener('click', function() {
+                window.location.href = 'pics.html';
             });
         });
         
-        // Position GIFs in a circle
+        // Position GIFs in a circle (updated for 4 options)
         function positionOptionGifs() {
             const options = document.querySelectorAll('.option-gif');
-            const radius = 120; // Distance from center
-            const centerX = 175; // Half of circle-container width
-            const centerY = 175; // Half of circle-container height
+            const container = document.querySelector('.circle-container');
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+            const radius = Math.min(containerWidth, containerHeight) * 0.35;
+            const centerX = containerWidth / 2;
+            const centerY = containerHeight / 2;
+            const gifSize = 75;
             
             options.forEach((option, index) => {
                 const angle = (index * (360 / options.length)) * (Math.PI / 180);
-                const x = centerX + radius * Math.cos(angle) - 40; // 40 is half of gif width
-                const y = centerY + radius * Math.sin(angle) - 40; // 40 is half of gif height
+                const x = centerX + radius * Math.cos(angle) - (gifSize / 2);
+                const y = centerY + radius * Math.sin(angle) - (gifSize / 2);
                 
-                option.style.left = x + 'px';
-                option.style.top = y + 'px';
+                option.style.left = `${x}px`;
+                option.style.top = `${y}px`;
             });
         }
+        
+        // Reposition on window resize
+        window.addEventListener('resize', function() {
+            positionOptionGifs();
+        });
     </script>
 </body>
 </html>
