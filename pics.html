@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>For My Valentine ❤️ | Our Memories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffe6f0, #ffccdd);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        /* Floating hearts background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.3);
+            font-size: 24px;
+            animation: floatUp 15s linear infinite;
+            bottom: -50px;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Page container */
+        .pics-page {
+            width: 100%;
+            max-width: 1200px;
+            padding: 30px 20px;
+            animation: fadeIn 0.8s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Page title */
+        .page-title {
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.3);
+            font-weight: 700;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .sub-text {
+            font-size: 1.2rem;
+            color: #d48ba6;
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        /* Gallery grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 35px;
+            width: 100%;
+            margin-bottom: 50px;
+        }
+        
+        /* Polaroid styling */
+        .polaroid-card {
+            background: white;
+            padding: 15px 15px 35px 15px;
+            border-radius: 8px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .polaroid-card:hover {
+            transform: translateY(-10px) rotate(0deg);
+            box-shadow: 0 20px 35px rgba(255, 105, 180, 0.2);
+        }
+        
+        /* Random rotation for each polaroid */
+        .polaroid-card:nth-child(odd) {
+            transform: rotate(-1deg);
+        }
+        
+        .polaroid-card:nth-child(even) {
+            transform: rotate(2deg);
+        }
+        
+        .polaroid-card:hover {
+            transform: translateY(-10px) rotate(0deg) scale(1.02);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Apply delay to each card */
+        .polaroid-card:nth-child(1) { animation-delay: 0.1s; }
+        .polaroid-card:nth-child(2) { animation-delay: 0.2s; }
+        .polaroid-card:nth-child(3) { animation-delay: 0.3s; }
+        .polaroid-card:nth-child(4) { animation-delay: 0.4s; }
+        .polaroid-card:nth-child(5) { animation-delay: 0.5s; }
+        .polaroid-card:nth-child(6) { animation-delay: 0.6s; }
+        .polaroid-card:nth-child(7) { animation-delay: 0.7s; }
+        .polaroid-card:nth-child(8) { animation-delay: 0.8s; }
+        .polaroid-card:nth-child(9) { animation-delay: 0.9s; }
+        
+        .polaroid-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+            border-radius: 4px;
+            filter: sepia(0.05) brightness(1.02);
+            transition: filter 0.3s ease;
+        }
+        
+        .polaroid-card:hover img {
+            filter: sepia(0) brightness(1);
+        }
+        
+        .polaroid-caption {
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            color: #b3708a;
+            font-size: 0.9rem;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Decorative elements */
+        .memory-heart {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            color: #ffb6c1;
+            font-size: 1rem;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        
+        .polaroid-card:hover .memory-heart {
+            opacity: 1;
+            color: #ff69b4;
+        }
+        
+        /* Empty state styling (in case no images) */
+        .empty-message {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            color: #d48ba6;
+            font-size: 1.2rem;
+        }
+        
+        .empty-message i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ffb6c1;
+        }
+        
+        /* Exit button */
+        .exit-btn {
+            background: linear-gradient(to right, #ff69b4, #ff8ec7);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInUp 1.2s ease-out;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        
+        .exit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 105, 180, 0.4);
+        }
+        
+        .exit-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .sub-text {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 25px;
+            }
+            
+            .polaroid-card {
+                padding: 12px 12px 30px 12px;
+            }
+            
+            .polaroid-caption {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .polaroid-card {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .polaroid-card:hover {
+                transform: rotate(0deg) translateY(-5px);
+            }
+            
+            .polaroid-card:hover img {
+                filter: sepia(0.05) brightness(1.02);
+            }
+            
+            .exit-btn:hover {
+                transform: translateY(0);
+            }
+            
+            .exit-btn:active {
+                transform: translateY(-2px);
+            }
+        }
+        
+        /* Decorative tape effect */
+        .polaroid-card::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 20px;
+            background: rgba(255, 245, 210, 0.7);
+            border-radius: 20px 20px 0 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .polaroid-card:hover::before {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <div class="pics-page">
+        <h1 class="page-title">Our Memories ❤️</h1>
+        <p class="sub-text">Every moment with you is a treasure I'll always cherish.</p>
+        
+        <div class="gallery" id="gallery">
+            <!-- Polaroid photos - placeholders for your images -->
+            <!-- Add your images as: pd1.jpeg, pd2.jpeg, pd3.jpeg, etc. -->
+            <div class="polaroid-card">
+                <img src="pd1.jpg" alt="Our memory 1" onerror="this.src='https://placehold.co/400x400/ffe6f0/ff69b4?text=Our+Memory'">
+                <div class="polaroid-caption">✨ 1st Date ✨</div>
+                <div class="memory-heart"><i class="fas fa-heart"></i></div>
+            </div>
+            
+            <div class="polaroid-card">
+                <img src="pd2.jpg" alt="Our memory 2" onerror="this.src='https://placehold.co/400x400/ffe6f0/ff69b4?text=Our+Memory'">
+                <div class="polaroid-caption">🌸 2nd Date 🌸</div>
+                <div class="memory-heart"><i class="fas fa-heart"></i></div>
+            </div>
+            
+            <div class="polaroid-card">
+                <img src="pd3.jpg" alt="Our memory 3" onerror="this.src='https://placehold.co/400x400/ffe6f0/ff69b4?text=Our+Memory'">
+                <div class="polaroid-caption">💫 3rd Date 💫</div>
+                <div class="memory-heart"><i class="fas fa-heart"></i></div>
+            </div>
+            
+            <div class="polaroid-card">
+                <img src="pd4.jpg" alt="Our memory 4" onerror="this.src='https://placehold.co/400x400/ffe6f0/ff69b4?text=Our+Memory'">
+                <div class="polaroid-caption">🌹 Soon. 🌹</div>
+                <div class="memory-heart"><i class="fas fa-heart"></i></div>
+            </div>
+            
+            <div class="polaroid-card">
+                <img src="pd5.jpg" alt="Our memory 5" onerror="this.src='https://placehold.co/400x400/ffe6f0/ff69b4?text=Our+Memory'">
+                <div class="polaroid-caption">⭐︎ Soon. ⭐︎</div>
+                <div class="memory-heart"><i class="fas fa-heart"></i></div>
+            </div>
+            
+            <div class="polaroid-card">
+                <img src="pd6.jpg" alt="Our memory 6" onerror="this.src='https://placehold.co/400x400/ffe6f0/ff69b4?text=Our+Memory'">
+                <div class="polaroid-caption">🎀 Soon. 🎀</div>
+                <div class="memory-heart"><i class="fas fa-heart"></i></div>
+            </div>
+            
+            <div class="polaroid-card">
+                <img src="pd7.jpg" alt="Our memory 7" onerror="this.src='https://placehold.co/400x400/ffe6f0/ff69b4?text=Our+Memory'">
+                <div class="polaroid-caption">💕 Soon. 💕</div>
+                <div class="memory-heart"><i class="fas fa-heart"></i></div>
+            </div>
+            
+            <div class="polaroid-card">
+                <img src="pd8.jpg" alt="Our memory 8" onerror="this.src='https://placehold.co/400x400/ffe6f0/ff69b4?text=Our+Memory'">
+                <div class="polaroid-caption">🌙 Soon. 🌙</div>
+                <div class="memory-heart"><i class="fas fa-heart"></i></div>
+            </div>
+            
+            <div class="polaroid-card">
+                <img src="pd9.jpg" alt="Our memory 9" onerror="this.src='https://placehold.co/400x400/ffe6f0/ff69b4?text=Our+Memory'">
+                <div class="polaroid-caption">✨ Soon. ✨</div>
+                <div class="memory-heart"><i class="fas fa-heart"></i></div>
+            </div>
+        </div>
+        
+        <!-- Exit button to go back to OPTION.HTML -->
+        <a href="option.html" class="exit-btn">
+            <i class="fas fa-arrow-left"></i> Back to Options
+        </a>
+    </div>
+    
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+        
+        // Add subtle animation to polaroid images on load
+        function animateImages() {
+            const polaroids = document.querySelectorAll('.polaroid-card');
+            polaroids.forEach((card, index) => {
+                const img = card.querySelector('img');
+                if (img.complete) {
+                    img.style.opacity = '1';
+                } else {
+                    img.addEventListener('load', () => {
+                        img.style.opacity = '1';
+                    });
+                }
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            animateImages();
+            
+            // Optional: Add click effect to polaroid cards
+            const polaroids = document.querySelectorAll('.polaroid-card');
+            polaroids.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
