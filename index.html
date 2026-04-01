@@ -129,54 +129,141 @@
             line-height: 1.4;
         }
         
-        /* Button styling */
-        .buttons-container {
+        /* Login form styling */
+        .login-form {
             display: flex;
+            flex-direction: column;
             gap: 20px;
-            margin-top: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
+            margin-bottom: 25px;
         }
         
-        .btn {
-            padding: 15px 35px;
-            font-size: 1.3rem;
+        .input-group {
+            text-align: left;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #d48ba6;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ffccdd;
+            border-radius: 15px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            outline: none;
+            color: #5a3d5c;
+        }
+        
+        .input-group input:focus {
+            border-color: #ff69b4;
+            box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+        }
+        
+        .input-group input::placeholder {
+            color: #ccb3c0;
+        }
+        
+        /* Login button */
+        .btn-login {
+            background: linear-gradient(to right, #ff69b4, #ff8ec7);
+            color: white;
             border: none;
+            padding: 14px 35px;
+            font-size: 1.2rem;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            min-width: 130px;
+            box-shadow: 0 8px 15px rgba(255, 105, 180, 0.3);
+            margin-top: 10px;
         }
         
-        .btn:hover {
+        .btn-login:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 20px rgba(255, 105, 180, 0.4);
         }
         
-        .btn:active {
+        .btn-login:active {
             transform: translateY(0);
         }
         
-        .btn-yes {
-            background: linear-gradient(to right, #7ed56f, #55c57a);
-            color: white;
+        /* Error message styling */
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
         
-        .btn-no {
-            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
-            color: white;
-            position: relative;
-            transition: all 0.2s ease;
+        .error-gif {
+            width: 180px;
+            height: 180px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 0 auto;
         }
         
+        .error-gif img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .error-text {
+            font-size: 1.3rem;
+            color: #ff6b6b;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .btn-back {
+            background: linear-gradient(to right, #ff69b4, #ff8ec7);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(255, 105, 180, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(255, 105, 180, 0.4);
+        }
+        
+        /* Proceed button */
         .btn-proceed {
             background: linear-gradient(to right, #ff69b4, #ff8ec7);
             color: white;
-            margin-top: 20px;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(255, 105, 180, 0.3);
             text-decoration: none;
             display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .btn-proceed:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(255, 105, 180, 0.4);
         }
         
         /* Initially hidden pages */
@@ -194,6 +281,19 @@
             .main-text {
                 font-size: 1.7rem;
             }
+            
+            .input-group input {
+                padding: 10px 12px;
+            }
+            
+            .btn-login {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .error-text {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -201,28 +301,49 @@
     <!-- Floating hearts background -->
     <div class="hearts-container" id="heartsContainer"></div>
     
-    <!-- PAGE 1: Valentine Question -->
+    <!-- PAGE 1: Login Screen -->
     <div class="page" id="page1">
         <div class="floating-box">
             <div class="gif-container">
                 <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejl5eG9tNTF4OTh1ejR1MXhrZ3l6MG5kY2xnOTJ1Z2NncDJ6M2YyMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/opvdnsIBv1AciolLjk/giphy.gif" alt="Cute Valentine GIF">
             </div>
-            <div class="main-text">Will you be my Valentine?</div>
-            <div class="buttons-container">
-                <button class="btn btn-yes" id="yesBtn">YES!</button>
-                <button class="btn btn-no" id="noBtn">No</button>
+            <div class="main-text">HAIIII!!! ❤️</div>
+            
+            <form class="login-form" id="loginForm">
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> Your Name</label>
+                    <input type="text" id="username" placeholder="Enter your name..." autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-lock"></i> Secret Code</label>
+                    <input type="password" id="password" placeholder="Enter password...">
+                </div>
+                <button type="submit" class="btn-login">Login ✨</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- PAGE 2: Error Screen -->
+    <div class="page hidden" id="page2">
+        <div class="floating-box">
+            <div class="error-container">
+                <div class="error-gif">
+                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHBhM3EwcWk1NHY1NmFwMGtqYmJkczl2dW85OGw3MjkyYXIxdzZyZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/QuCslOrnS649PSCnn7/giphy.gif" alt="Wrong Password">
+                </div>
+                <div class="error-text">No. You're not Aya.</div>
+                <button class="btn-back" id="backToLoginBtn">← Back to Login</button>
             </div>
         </div>
     </div>
     
-    <!-- PAGE 2: YAY Page -->
-    <div class="page hidden" id="page2">
+    <!-- PAGE 3: Success Screen -->
+    <div class="page hidden" id="page3">
         <div class="floating-box">
             <div class="gif-container">
                 <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWJ3MGEzNHhqdW04ZWtqdnJnM3hmcG5uc3dvZnRseTUza3pqMmQ5MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/lpU91npgmwIvkrMVDK/giphy.gif" alt="Happy GIF">
             </div>
             <div class="main-text">YAYYYYYYYYY!!!</div>
-            <a href="option.html" class="btn btn-proceed" id="proceedBtn">Proceed to Surprise</a>
+            <a href="option.html" class="btn-proceed">Proceed →</a>
         </div>
     </div>
     
@@ -245,52 +366,65 @@
         document.addEventListener('DOMContentLoaded', function() {
             createHearts();
             
-            // Page 1: No button behavior
-            const yesBtn = document.getElementById('yesBtn');
-            const noBtn = document.getElementById('noBtn');
-            let noClicks = 0;
+            // Get elements
+            const loginForm = document.getElementById('loginForm');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
             
-            noBtn.addEventListener('click', function(e) {
-                noClicks++;
-                
-                // Make Yes button bigger
-                yesBtn.style.transform = 'scale(' + (1 + noClicks * 0.2) + ')';
-                yesBtn.style.transition = 'transform 0.3s ease';
-                
-                // Move No button randomly
-                const maxX = window.innerWidth - noBtn.offsetWidth;
-                const maxY = window.innerHeight - noBtn.offsetHeight;
-                
-                const randomX = Math.random() * maxX;
-                const randomY = Math.random() * maxY;
-                
-                noBtn.style.position = 'fixed';
-                noBtn.style.left = randomX + 'px';
-                noBtn.style.top = randomY + 'px';
-                
-                // Remove No button after 3 clicks
-                if (noClicks >= 3) {
-                    noBtn.style.display = 'none';
-                }
-                
+            // Login form submission
+            loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
+                
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+                
+                // Check credentials
+                if (username === "Aya" && password === "maki67") {
+                    // Success - go to page 3
+                    document.getElementById('page1').classList.add('hidden');
+                    document.getElementById('page3').classList.remove('hidden');
+                    
+                    // Add celebration effect
+                    for (let i = 0; i < 50; i++) {
+                        setTimeout(() => {
+                            createCelebrationHeart();
+                        }, i * 100);
+                    }
+                } else {
+                    // Error - go to page 2
+                    document.getElementById('page1').classList.add('hidden');
+                    document.getElementById('page2').classList.remove('hidden');
+                    
+                    // Clear inputs for next attempt
+                    usernameInput.value = '';
+                    passwordInput.value = '';
+                }
             });
             
-            // Yes button - go to page 2
-            yesBtn.addEventListener('click', function() {
-                document.getElementById('page1').classList.add('hidden');
-                document.getElementById('page2').classList.remove('hidden');
-                
-                // Add celebration effect
-                for (let i = 0; i < 50; i++) {
-                    setTimeout(() => {
-                        createCelebrationHeart();
-                    }, i * 100);
+            // Back to login button
+            const backToLoginBtn = document.getElementById('backToLoginBtn');
+            backToLoginBtn.addEventListener('click', function() {
+                document.getElementById('page2').classList.add('hidden');
+                document.getElementById('page1').classList.remove('hidden');
+            });
+            
+            // Add Enter key support for login
+            usernameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    passwordInput.focus();
+                }
+            });
+            
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    loginForm.dispatchEvent(new Event('submit'));
                 }
             });
         });
         
-        // Create celebration hearts for Yes click
+        // Create celebration hearts for successful login
         function createCelebrationHeart() {
             const heart = document.createElement('div');
             heart.innerHTML = '❤';
